@@ -28,11 +28,18 @@ env = environ.Env(
 # Carga el .env (solo en local)
 env_file = os.path.join(BASE_DIR, '.env')
 if os.path.isfile(env_file):
-    environ.Env.read_env(env_file)
+    env.read_env(env_file)
 
-DEBUG      = env('DEBUG')
-SECRET_KEY = env('SECRET_KEY')
-DATABASES  = {'default': env.db('DATABASE_URL')}
+# Lee DEBUG igual que antes
+DEBUG = env('DEBUG')
+
+# Lee raw_secret incluso si trae comillas, luego las quitamos:
+raw_secret = env('SECRET_KEY', default='')
+# Quita comillas dobles o simples al inicio o final
+SECRET_KEY = raw_secret.strip().strip('"').strip("'")
+
+# Tu DB igual
+DATABASES = { 'default': env.db('DATABASE_URL') }
 ALLOWED_HOSTS = ['*']
 
 
