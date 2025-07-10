@@ -1,0 +1,10 @@
+[build]
+  base    = "final_project/frontend/colabook"
+  command = "npm ci && npm run build -- --configuration=production"
+  publish = "dist/colabook"
+
+[[redirects]]
+  from   = "/*"
+  to     = "/index.html"
+  status = 200
+  force  = true
