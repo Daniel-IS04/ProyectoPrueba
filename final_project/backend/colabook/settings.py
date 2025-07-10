@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import environ
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +22,23 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ccexbxjtq#7chjwp!lps1iv!h-)#27czlts)2x@cp23vne2(47'
+env = environ.Env(
+    DEBUG=(bool, False)   # por defecto DEBUG=False si no está en el entorno
+)
+# Carga el .env (solo en local)
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# 3) Lectura de las variables
+DEBUG       = env('DEBUG')
+SECRET_KEY  = env('SECRET_KEY')
 
-ALLOWED_HOSTS = []
+# 4) Configura la DB con la URL
+DATABASES = {
+    'default': env.db('DATABASE_URL')
+}
+
+# 5) Hosts permitidos (en local puedes dejar *)  
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -89,13 +102,6 @@ WSGI_APPLICATION = 'colabook.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 
 
 # Password validation
