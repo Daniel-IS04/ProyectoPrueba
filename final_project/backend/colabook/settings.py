@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import sys
 import environ
 import os
 
@@ -29,6 +30,11 @@ env = environ.Env(
 env_file = os.path.join(BASE_DIR, '.env')
 if os.path.isfile(env_file):
     env.read_env(env_file)
+
+print(">>> ENV KEYS:", list(os.environ.keys()), file=sys.stdout)
+print(">>> DEBUG VAL:", os.environ.get("DEBUG"), file=sys.stdout)
+print(">>> SECRET_KEY VAL:", os.environ.get("SECRET_KEY"), file=sys.stdout)
+print(">>> DATABASE_URL VAL:", os.environ.get("DATABASE_URL"), file=sys.stdout)
 
 # Lee DEBUG igual que antes
 DEBUG = env('DEBUG')
