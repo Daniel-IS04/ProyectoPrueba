@@ -26,19 +26,15 @@ env = environ.Env(
     DEBUG=(bool, False)   # por defecto DEBUG=False si no está en el entorno
 )
 # Carga el .env (solo en local)
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+env_file = os.path.join(BASE_DIR, '.env')
+if os.path.isfile(env_file):
+    environ.Env.read_env(env_file)
 
-# 3) Lectura de las variables
-DEBUG       = env('DEBUG')
-SECRET_KEY  = env('SECRET_KEY')
-
-# 4) Configura la DB con la URL
-DATABASES = {
-    'default': env.db('DATABASE_URL')
-}
-
-# 5) Hosts permitidos (en local puedes dejar *)  
+DEBUG      = env('DEBUG')
+SECRET_KEY = env('SECRET_KEY')
+DATABASES  = {'default': env.db('DATABASE_URL')}
 ALLOWED_HOSTS = ['*']
+
 
 
 # Application definition
