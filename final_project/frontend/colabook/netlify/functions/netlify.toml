@@ -1,6 +1,6 @@
 [build]
   base    = "final_project/frontend/colabook"
-  command = "npm ci && npm run build"
+  command = "npm ci && npm run build -- --configuration=production"
   publish = "dist/colabook"
 
 [[redirects]]
