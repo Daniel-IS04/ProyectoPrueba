@@ -46,6 +46,17 @@ SECRET_KEY = raw_secret.strip().strip('"').strip("'")
 
 # Tu DB igual
 DATABASES = { 'default': env.db('DATABASE_URL') }
+
+from django.db import connections, OperationalError
+
+try:
+    connections['default'].cursor()
+    print("✅ [DB CHECK] Conexión a la DB OK")
+except OperationalError as e:
+    print(f"❌ [DB CHECK] Error conectando a la DB: {e}")
+# ----
+
+
 ALLOWED_HOSTS = ['*']
 
 
