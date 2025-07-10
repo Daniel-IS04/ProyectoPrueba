@@ -34,7 +34,7 @@ if os.path.isfile(env_file):
 DEBUG = env('DEBUG')
 
 # Lee raw_secret incluso si trae comillas, luego las quitamos:
-raw_secret = env('SECRET_KEY', default='')
+raw_secret = env('SECRET_KEY')
 # Quita comillas dobles o simples al inicio o final
 SECRET_KEY = raw_secret.strip().strip('"').strip("'")
 
