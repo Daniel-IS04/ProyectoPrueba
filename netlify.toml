@@ -1,7 +1,7 @@
 [build]
   base    = "final_project/frontend/colabook"
   command = "npm ci && npm run build -- --configuration=production"
-  publish = "dist/colabook"
+  publish = "dist/colabook/browser"
 
 [[redirects]]
   from   = "/*"
